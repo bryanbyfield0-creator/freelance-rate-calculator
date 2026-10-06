@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Freelance Rate Calculator – Find Your Hourly &amp; Day Rate (Free)</title>
+<meta name="description" content="Free freelance hourly rate calculator. Enter your target take-home pay, expenses, taxes and time off to get your minimum hourly rate, day rate and project price.">
+<link rel="canonical" href="https://bryanbyfield0-creator.github.io/freelance-rate-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Freelance Rate Calculator: Find Your Hourly Rate">
+<meta property="og:description" content="Work out the hourly rate, day rate and project price you need to hit your income goal as a freelancer. Free, no sign-up.">
+<meta property="og:url" content="https://bryanbyfield0-creator.github.io/freelance-rate-calculator/">
+<meta property="og:image" content="https://bryanbyfield0-creator.github.io/freelance-rate-calculator/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<!-- AdSense placeholder: once approved, uncomment and replace ca-pub-XXXXXXXXXXXXXXXX
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Freelance Rate Calculator","url":"https://bryanbyfield0-creator.github.io/freelance-rate-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How do I calculate my freelance hourly rate?","acceptedAnswer":{"@type":"Answer","text":"Add your desired take-home income (grossed up for tax) to your yearly business expenses, then divide by the number of hours you can actually bill in a year: (52 minus weeks off) times billable hours per week. Add a profit buffer on top."}},
+{"@type":"Question","name":"How many billable hours should I plan for?","acceptedAnswer":{"@type":"Answer","text":"Most freelancers bill roughly 50–70% of the hours they work. The rest goes to admin, marketing, invoicing and finding clients. If you work 40 hours a week, 20–28 billable hours is a realistic starting point."}},
+{"@type":"Question","name":"What tax rate should I use?","acceptedAnswer":{"@type":"Answer","text":"The calculator defaults to 25% as a rough estimate covering income and self-employment taxes. Your real rate depends on where you live and your situation, so check with a tax professional. This tool is not tax advice."}},
+{"@type":"Question","name":"Should I charge hourly or per project?","acceptedAnswer":{"@type":"Answer","text":"Both can work. Knowing your hourly rate lets you price projects with confidence: estimate the hours, multiply by your rate, and add a cushion for scope creep. The project helper on this page adds 15% by default."}},
+{"@type":"Question","name":"What is a day rate and how is it calculated here?","acceptedAnswer":{"@type":"Answer","text":"A day rate is a flat fee for a full working day. This calculator uses your recommended hourly rate multiplied by 8 hours."}},
+{"@type":"Question","name":"Why add a profit buffer?","acceptedAnswer":{"@type":"Answer","text":"A buffer covers slow months, late payments, unpaid revisions and growth like training or new equipment. Even 10–20% makes your income far less fragile than charging the bare minimum."}}
+]}
+</script>
+</head>
+<body>
+<header class="top"><div class="wrap"><a href="./" class="brand"><img src="favicon.svg" alt="" width="28" height="28"> RateCalc</a></div></header>
+<main class="wrap">
+<h1>Freelance Rate Calculator: Find Your Hourly Rate</h1>
+<p class="lead">Work out the hourly rate, day rate and project price you need to hit your income goal, after taxes, expenses and time off. Free, no sign-up, nothing stored on a server.</p>
+
+<div class="grid">
+<form id="calc" class="card" novalidate onsubmit="return false">
+<h2>Your numbers</h2>
+<div class="field"><label for="income">Desired annual take-home income ($)</label>
+<input id="income" name="income" type="number" inputmode="decimal" min="0" step="1000" value="60000"></div>
+<div class="field"><label for="expenses">Business expenses per year ($)</label>
+<input id="expenses" name="expenses" type="number" inputmode="decimal" min="0" step="100" value="6000" aria-describedby="h-exp">
+<small id="h-exp">Software, equipment, insurance, accounting, coworking, etc.</small></div>
+<div class="field"><label for="tax">Estimated tax rate (%)</label>
+<input id="tax" name="tax" type="number" inputmode="decimal" min="0" max="90" step="1" value="25" aria-describedby="h-tax">
+<small id="h-tax">A rough estimate only, not tax advice. Check with a tax professional.</small></div>
+<div class="field"><label for="weeksOff">Weeks off per year</label>
+<input id="weeksOff" name="weeksOff" type="number" inputmode="decimal" min="0" max="51" step="1" value="6" aria-describedby="h-wo">
+<small id="h-wo">Vacation, public holidays and sick days.</small></div>
+<div class="field"><label for="hours">Billable hours per week</label>
+<input id="hours" name="hours" type="number" inputmode="decimal" min="1" max="100" step="1" value="25" aria-describedby="h-hrs">
+<small id="h-hrs">Most freelancers bill 50–70% of the hours they work.</small></div>
+<div class="field"><label for="buffer">Profit / buffer (%) <span class="opt">optional</span></label>
+<input id="buffer" name="buffer" type="number" inputmode="decimal" min="0" max="200" step="1" value="15" aria-describedby="h-buf">
+<small id="h-buf">Covers slow months, late payments and growth.</small></div>
+</form>
+
+<section class="card results" aria-labelledby="res-h">
+<h2 id="res-h">Your rates</h2>
+<div aria-live="polite" id="live">
+<div class="big"><span>Recommended hourly rate</span><strong id="o-rec">–</strong></div>
+<dl class="stats">
+<div><dt>Minimum hourly rate</dt><dd id="o-min">–</dd></div>
+<div><dt>Day rate (8 h)</dt><dd id="o-day">–</dd></div>
+<div><dt>Weekly revenue target</dt><dd id="o-week">–</dd></div>
+<div><dt>Monthly revenue target</dt><dd id="o-month">–</dd></div>
+<div><dt>Annual revenue target</dt><dd id="o-year">–</dd></div>
+<div><dt>Billable hours / year</dt><dd id="o-hrs">–</dd></div>
+</dl>
+<p id="o-err" class="err" hidden></p>
+</div>
+<div class="project">
+<h3>Quick project price</h3>
+<div class="field inline"><label for="projHours">Estimated hours</label>
+<input id="projHours" name="projHours" type="number" inputmode="decimal" min="0" step="1" value="20"></div>
+<p class="proj-out">Base: <strong id="o-pbase">–</strong><br>With 15% scope-creep cushion: <strong id="o-pquote">–</strong></p>
+</div>
+<button type="button" id="share" class="btn-ghost">Copy shareable link</button>
+<span id="share-msg" class="share-msg" role="status"></span>
+</section>
+</div>
+
+<aside class="cta" aria-label="Free resource">
+<p class="cta-h">Now track the clients who pay that rate</p>
+<p>Grab the free 1-page Client Tracker: leads, projects, invoices and follow-ups in one sheet.</p>
+<a class="btn" href="https://ucantc.gumroad.com/l/free-freelance-client-tracker?utm_source=ratecalc&amp;utm_medium=web&amp;utm_campaign=results_cta">Get the free Client Tracker</a>
+<p class="cta-sub">Want the full kit? See the <a href="https://ucantc.gumroad.com/l/zjpbna?utm_source=ratecalc&amp;utm_medium=web&amp;utm_campaign=results_secondary">$29 Freelance Client Starter Bundle</a>.</p>
+</aside>
+
+<section>
+<h2>How it works</h2>
+<ol class="steps">
+<li><strong>Set your goal.</strong> Enter the take-home income you want and what your business costs to run each year.</li>
+<li><strong>Be honest about time.</strong> Subtract weeks off and count only hours you can actually bill clients.</li>
+<li><strong>Get your rates.</strong> See your minimum and recommended hourly rate, day rate and revenue targets, then price a project.</li>
+</ol>
+</section>
+
+<section>
+<h2>The formula</h2>
+<p>Your take-home income is what's left after tax, so we first gross it up: <code>pre-tax profit = take-home ÷ (1 − tax rate)</code>. Add expenses to get the revenue you need: <code>revenue = pre-tax profit + expenses</code>.</p>
+<p>Billable hours per year are <code>(52 − weeks off) × billable hours per week</code>. Then:</p>
+<ul>
+<li><strong>Minimum rate</strong> = revenue ÷ billable hours per year</li>
+<li><strong>Recommended rate</strong> = minimum rate × (1 + buffer %)</li>
+<li><strong>Day rate</strong> = recommended rate × 8</li>
+<li><strong>Weekly target</strong> = recommended rate × billable hours per week (for each working week)</li>
+<li><strong>Monthly target</strong> = recommended rate × billable hours per year ÷ 12</li>
+<li><strong>Project price</strong> = estimated hours × recommended rate × 1.15</li>
+</ul>
+<p>This is a simplified model. Taxes are treated as a flat rate on profit, which is an approximation.</p>
+</section>
+
+<section class="faq">
+<h2>FAQ</h2>
+<details><summary>How do I calculate my freelance hourly rate?</summary><p>Add your desired take-home income (grossed up for tax) to your yearly business expenses, then divide by the number of hours you can actually bill in a year: (52 minus weeks off) times billable hours per week. Add a profit buffer on top.</p></details>
+<details><summary>How many billable hours should I plan for?</summary><p>Most freelancers bill roughly 50–70% of the hours they work. The rest goes to admin, marketing, invoicing and finding clients. If you work 40 hours a week, 20–28 billable hours is a realistic starting point.</p></details>
+<details><summary>What tax rate should I use?</summary><p>The calculator defaults to 25% as a rough estimate covering income and self-employment taxes. Your real rate depends on where you live and your situation, so check with a tax professional. This tool is not tax advice.</p></details>
+<details><summary>Should I charge hourly or per project?</summary><p>Both can work. Knowing your hourly rate lets you price projects with confidence: estimate the hours, multiply by your rate, and add a cushion for scope creep. The project helper on this page adds 15% by default.</p></details>
+<details><summary>What is a day rate and how is it calculated here?</summary><p>A day rate is a flat fee for a full working day. This calculator uses your recommended hourly rate multiplied by 8 hours.</p></details>
+<details><summary>Why add a profit buffer?</summary><p>A buffer covers slow months, late payments, unpaid revisions and growth like training or new equipment. Even 10–20% makes your income far less fragile than charging the bare minimum.</p></details>
+</section>
+</main>
+<footer class="foot"><div class="wrap">
+<p>Contact: <a href="mailto:bryanbyfield0@gmail.com">bryanbyfield0@gmail.com</a> · <a href="about.html">About &amp; Privacy</a></p>
+<p class="fine">Estimates only. Not financial or tax advice.</p>
+</div></footer>
+<script src="app.js" defer></script>
+</body>
+</html>
